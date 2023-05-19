@@ -1,0 +1,25 @@
+apiVersion: "nais.io/v1alpha1"
+kind: "Application"
+metadata:
+  name: spommer
+  namespace: tbd
+  labels:
+    team: tbd
+image: {{image}}
+  port: 8080
+  liveness:
+    path: isalive
+  readiness:
+    path: isready
+  replicas:
+    max: 1
+    min: 1
+  resources:
+    limits:
+      cpu: 4000m
+      memory: 6Gi
+    requests:
+      cpu: 200m
+      memory: 400Mi
+  secureLogs:
+    enabled: true
