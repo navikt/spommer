@@ -10,7 +10,7 @@ on:
 
 jobs:
   set_version:
-    name: set image name
+    name: spommer
     runs-on: ubuntu-latest
     steps:
       - name: create docker tag
@@ -46,7 +46,7 @@ jobs:
 
   deployDev:
     name: deploy to dev
-    needs: [build]
+    needs: [set_version, build]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
