@@ -19,10 +19,10 @@ spec:
     max: 1
   resources:
     limits:
-      cpu: 500m
-      memory: 1024Mi
+      cpu: 4000m
+      memory: 6Gi
     requests:
-      cpu: 50m
-      memory: 512Mi
+      cpu: 200m
+      memory: 400Mi
   secureLogs:
     enabled: true
