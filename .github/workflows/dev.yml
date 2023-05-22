@@ -10,7 +10,7 @@ on:
 
 jobs:
   set_version:
-    name: spommer
+    name: set image name
     runs-on: ubuntu-latest
     steps:
       - name: create docker tag
