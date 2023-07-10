@@ -30,12 +30,16 @@ jobs:
           java-version: '17.x'
       - name: test and build
         run: ./gradlew build
-      - name: build docker image
-        run: docker build . --pull -t ${{ needs.set_version.outputs.image }}
-      - name: push docker image
-        run: |
-          docker login --username "$GITHUB_REPOSITORY" -p ${{ secrets.GITHUB_TOKEN }} ghcr.io
-          docker push ${{ needs.set_version.outputs.image }}
+      - uses: nais/docker-build-push@v0
+        id: docker-build-push
+        with:
+          team: tbd
+          tag: ${{ needs.set_version.outputs.image }}
+          project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
+          identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
+    outputs:
+      image: ${{ steps.docker-build-push.outputs.image }}
+
   deployDev:
     name: Deploy to dev
     needs: [ set_version, build ]
