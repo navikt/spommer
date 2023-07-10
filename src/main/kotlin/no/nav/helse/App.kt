@@ -7,38 +7,19 @@ import io.ktor.server.netty.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import org.slf4j.LoggerFactory
+import io.ktor.server.cio.*
 
 class App {
     private var webserver: NettyApplicationEngine? = null
     private val port = 8080
 
     fun configAndStartWebserver() {
-        webserver = embeddedServer(
-            Netty,
-            applicationEngineEnvironment {
-                connector {
-                    port = this@App.port
-                }
-
-                module {
-                    routing {
-                        get("/is-alive") {
-                            call.respondText("ALIVE", ContentType.Text.Plain)
-                        }
-
-                        get("/is-ready") {
-                            call.respondText("READY", ContentType.Text.Plain)
-                        }
-                    }
-                }
+        embeddedServer(CIO, port = 8080 ) {
+            routing {
+                get("/isalive") { call.respondText("ALIVE!") }
+                get("/isready") { call.respondText("READY!") }
             }
-        )
-
-        webserver!!.start(wait = false)
-    }
-
-    fun shutdown() {
-        webserver!!.stop(1000, 1000)
+        }.start(wait = true)
     }
 }
 
@@ -47,12 +28,4 @@ fun main() {
     logger.info("Hello spommer!")
     val app = App()
     app.configAndStartWebserver()
-
-    Runtime.getRuntime().addShutdownHook(
-        Thread {
-            logger.info("Fikk shutdown-signal, avslutter...")
-            app.shutdown()
-            logger.info("Avsluttet OK")
-        }
-    )
 }
