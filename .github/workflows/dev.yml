@@ -16,7 +16,7 @@ jobs:
       - name: create docker tag
         run: echo "TAG=$(echo ${{ github.sha }} | cut -c1-7)" >> $GITHUB_ENV
     outputs:
-      image: ghcr.io/${{ github.repository }}/spommer:${{ env.TAG }}
+      image: spommer:${{ env.TAG }}
 
   build:
     name: build docker image
