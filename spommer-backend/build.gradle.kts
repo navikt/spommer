@@ -25,6 +25,7 @@ dependencies {
     implementation("ch.qos.logback:logback-classic:$logbackClassicVersion")
     implementation("net.logstash.logback:logstash-logback-encoder:$logbackEncoderVersion")
 
+
     implementation("org.flywaydb:flyway-core:$flywayCoreVersion")
     implementation("com.zaxxer:HikariCP:$hikariCPVersion")
     implementation("org.postgresql:postgresql:$postgresqlVersion")
@@ -38,6 +39,8 @@ dependencies {
     testImplementation("com.github.tomakehurst:wiremock-jre8:$wiremockJre8Version") {
         exclude(group = "com.github.jknack.handlebars.java")
         exclude(group = "junit")
+
+
     }
 
     testImplementation("org.testcontainers:postgresql:$testcontainersVersion")
