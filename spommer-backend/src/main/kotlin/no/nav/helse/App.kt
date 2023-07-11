@@ -1,7 +1,6 @@
 package no.nav.helse
 
 import Konfig
-import com.zaxxer.hikari.HikariDataSource
 import configAndStartWebserver
 import org.slf4j.LoggerFactory
 import kotlinx.coroutines.runBlocking
@@ -30,11 +29,5 @@ internal class App(
 
     fun start(bordDao: BordDao) {
         configAndStartWebserver(bordDao).start(wait = false)
-        Runtime.getRuntime().addShutdownHook(
-            Thread{
-                database.getDataSource().close()
-            }
-        )
-
     }
 }
