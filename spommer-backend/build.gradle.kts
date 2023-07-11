@@ -62,7 +62,7 @@ tasks {
     }
 
     withType<Jar> {
-       // mustRunAfter(":spommer-frontend:npm_run_build")
+        mustRunAfter(":spommer-frontend:npm_run_build")
         archiveBaseName.set("app")
 
         manifest {
@@ -72,9 +72,9 @@ tasks {
             }
         }
 
-        //from({ Paths.get(project(":spommer-frontend").buildDir.path) }) {
-        //    into("spommer-frontend/dist")
-       // }
+        from({ Paths.get(project(":spommer-frontend").buildDir.path) }) {
+            into("spommer-frontend/dist")
+        }
 
         doLast {
             configurations.runtimeClasspath.get().forEach {

@@ -7,6 +7,16 @@ on:
     branches: [ "main" ]
 
   workflow_dispatch:
+    push:
+      paths:
+        - 'deploy/**'
+        - 'spommer-backend/**'
+        - 'spommer-frontend/**'
+        - 'build.gradle.kts'
+        - '.github/workflows/**'
+        - 'Dockerfile'
+      branches:
+        - main
 
 jobs:
   set_version:
