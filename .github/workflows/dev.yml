@@ -1,11 +1,6 @@
 name: Spommer
 
 on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-
   workflow_dispatch:
     push:
       paths:
@@ -41,8 +36,11 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17.x'
+          cache: 'gradle'
       - name: test and build
-        run: ./gradlew build
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: :spommer-frontend:build :spommmer-backend:test :spommer-backend:build
       - uses: nais/docker-build-push@v0
         id: docker-build-push
         with:
