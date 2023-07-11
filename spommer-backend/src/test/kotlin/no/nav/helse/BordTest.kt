@@ -50,6 +50,6 @@ class BordTest {
         val bordDao = BordDao(dataSource)
         bordDao.leggInnStol("stol")
         val stoler = bordDao.hentStoler()
-        assertEquals(1, bordDao.hentStoler())
+        assertEquals(1, stoler)
     }
 }

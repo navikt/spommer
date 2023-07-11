@@ -4,6 +4,7 @@ import Konfig
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import org.flywaydb.core.Flyway
+import java.time.Duration
 
 class DataSourceBuilder(konfig: Konfig) {
 
@@ -17,13 +18,28 @@ class DataSourceBuilder(konfig: Konfig) {
         initializationFailTimeout = konfig.dbInitializationFailTimeout
     }
 
-    internal fun getDataSource() = HikariDataSource(hikariConfig).also { migrate(it) }
+    private val hikariMigrationConfig = HikariConfig().apply {
+        jdbcUrl = konfig.jdbcUrl
+        username = konfig.dbUsername
+        password = konfig.dbPassword
+        initializationFailTimeout = Duration.ofMinutes(1).toMillis()
+        connectionTimeout = Duration.ofMinutes(1).toMillis()
+        maximumPoolSize = 2
+    }
 
-    private fun migrate(dataSource: HikariDataSource, initSql: String = "") =
+    private fun runMigration(dataSource: HikariDataSource, initSql: String = "") =
         Flyway.configure()
             .dataSource(dataSource)
             .baselineOnMigrate(true)
             .initSql(initSql)
             .load()
             .migrate()
+
+    internal fun getDataSource(): HikariDataSource {
+        return HikariDataSource(hikariConfig)
+    }
+
+    internal fun migrate() {
+        HikariDataSource(hikariMigrationConfig).use { runMigration(it) }
+    }
 }
