@@ -1,3 +1,5 @@
+import java.nio.file.Paths
+
 val javaVersion = "17"
 val kotlinVersion = "1.8.10"
 val ktorVersion = "2.2.4"
@@ -60,6 +62,7 @@ tasks {
     }
 
     withType<Jar> {
+       // mustRunAfter(":spommer-frontend:npm_run_build")
         archiveBaseName.set("app")
 
         manifest {
@@ -68,6 +71,10 @@ tasks {
                 it.name
             }
         }
+
+        //from({ Paths.get(project(":spommer-frontend").buildDir.path) }) {
+        //    into("spommer-frontend/dist")
+       // }
 
         doLast {
             configurations.runtimeClasspath.get().forEach {

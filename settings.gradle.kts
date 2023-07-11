@@ -4,4 +4,4 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
-include("spommer-backend")
+include("spommer-backend", "spommer-frontend")
