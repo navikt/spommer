@@ -6,7 +6,7 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import no.nav.helse.BordDao
 
-internal fun configAndStartWebserver(bordDao: BordDao): ApplicationEngine =
+internal fun configAndStartWebserver(): ApplicationEngine =
     embeddedServer(CIO, port = 8080 ) {
         routing {
             get("/") {

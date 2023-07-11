@@ -18,16 +18,16 @@ fun main() {
 internal class App(
     private val database: DataSourceBuilder
 ) {
-    private val bordDao = BordDao(database.getDataSource())
+    //private val bordDao = BordDao(database.getDataSource())
 
     fun startBlocking() {
         runBlocking {
-            database.migrate()
-            start(bordDao)
+            //database.migrate()
+            start()
         }
     }
 
-    fun start(bordDao: BordDao) {
-        configAndStartWebserver(bordDao).start(wait = false)
+    fun start() {
+        configAndStartWebserver().start(wait = false)
     }
 }

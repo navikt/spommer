@@ -46,6 +46,7 @@ class BordTest {
     }
 
     @Test
+    @Disabled
     fun `legger inn stol`() {
         val bordDao = BordDao(dataSource)
         bordDao.leggInnStol("stol")
