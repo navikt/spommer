@@ -18,6 +18,7 @@ fun main() {
     val logger = LoggerFactory.getLogger("spommer")
     logger.info("Hello spommer!")
     configAndStartWebserver().start(wait = true)
+    // test
     //val app = App()
     //app.configAndStartWebserver()
 }
