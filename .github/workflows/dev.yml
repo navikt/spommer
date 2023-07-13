@@ -16,9 +16,9 @@ on:
 jobs:
   build:
     permissions:
-      contents: read
-      id-token: write
-    name: build docker image
+      contents: "read"
+      id-token: "write"
+    name: Bygg
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -32,8 +32,12 @@ jobs:
         uses: gradle/gradle-build-action@v2
         with:
           arguments: :spommer-frontend:build :spommmer-backend:test :spommer-backend:build
+        env:
+          ORG_GRADLE_PROJECT_githubUser: x-access-token
+          ORG_GRADLE_PROJECT_githubPassword: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: nais/docker-build-push@v0
+      - name: Lag Docker image
+        uses: nais/docker-build-push@v0
         id: docker-build-push
         with:
           team: tbd
